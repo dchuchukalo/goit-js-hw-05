@@ -30,11 +30,33 @@ class Car {
     this._speed = 0;
   }
 
+  // Я не совсем правильно понял что такое "результирующая скорость",
+  // и проверки все проходили, по этому и допустил ошибку.
+  // Вроде бы сейчас разобрался.
+
+  // Вариант 1
+
+  // accelerate(value) {
+  //   if (
+  //     this._speed <= this._maxSpeed &&
+  //     this._speed + value <= this._maxSpeed
+  //   ) {
+  //     this._speed += value;
+  //   }
+  // }
+
+  // Сначала сделал так, но потом решил вынести условие в отдельную переменную.
+
+  // Вариант 2
+
   accelerate(value) {
-    if (value <= this._maxSpeed) {
-      this._speed = value;
+    const resultSpeed = this._speed + value;
+    if (this._speed <= this._maxSpeed && resultSpeed <= this._maxSpeed) {
+      this._speed += value;
     }
   }
+
+  // Какой вариант будет лучше? Стоит ли выносить такие условия в отдельные переменные?
 
   decelerate(value) {
     if (this._speed - value >= 0) {
@@ -52,7 +74,10 @@ class Car {
 const mustang = new Car({ maxSpeed: 200, price: 2000 });
 
 mustang.turnOn();
+mustang.accelerate(100);
+mustang.accelerate(99);
 mustang.accelerate(50);
+
 mustang.drive(2);
 
 Car.getSpecs(mustang);
